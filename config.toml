@@ -8,12 +8,12 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Author]
   name = "Shaz"
-  bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
+  bio = "Shaz maybe  a successful blogger or writer. Nobody knows it."
   avatar = "img/avatar.jpg"
 
 [Params]
   subtitle = "DevOps enthusiast | Biker | Yoga Practitioner" # Subtitle of your site
-  description = "John Doe's Personal blog about everything" # Description of your site
+  description = "Shaz's technical blog about everything" # Description of your site
   opengraph = true
   twitter_cards = false
   readmore = true # Show "Read more" button in list if true
