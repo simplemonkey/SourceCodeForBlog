@@ -41,7 +41,7 @@ Prerequisites:
 > Github account ,Gitbash
 > Netlify account
 
-** Step 1 : Hugo Setup **
+**Step 1 : Hugo Setup**
 
 input  : nothing
 output : Site in hugo format with mainroad theme which is not built.
@@ -82,7 +82,7 @@ hugo server -D
 
 The Site should be available at localhost:1313/ if the port is free
 
-** Step 2 : Github Setup **
+**Step 2 : Github Setup**
 
 Input  : Hugo Source Code
 Output : Github repo
@@ -90,7 +90,7 @@ Output : Github repo
 Follow guidelines from github help pages to push your local project to github repository : https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line
 
 
-** Step 3 : Build and Host on Netlify **
+**Step 3 : Build and Host on Netlify**
 
 3.1 Conect your Netlify account with Github and authorize application with Github
 
