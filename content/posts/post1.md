@@ -41,7 +41,7 @@ Prerequisites:
 > Github account ,Gitbash
 > Netlify account
 
-Step one : Hugo Setup
+** Step 1 : Hugo Setup **
 
 input  : nothing
 output : Site in hugo format with mainroad theme which is not built.
@@ -82,16 +82,15 @@ hugo server -D
 
 The Site should be available at localhost:1313/ if the port is free
 
-Step 2 : Github Setup 
+** Step 2 : Github Setup **
 
 Input  : Hugo Source Code
-
 Output : Github repo
 
 Follow guidelines from github help pages to push your local project to github repository : https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line
 
 
-Step 3 : Build and Host on Netlify
+** Step 3 : Build and Host on Netlify **
 
 3.1 Conect your Netlify account with Github and authorize application with Github
 
@@ -107,14 +106,16 @@ Authorize Netlify
 ![](/img/NetlifyHugo3.png)
 
 
-3.2 In the Netlify console, selecting “Deploy site” will immediately take you to a terminal for your build. Once the build and deploy is finished , select Browse Site to view the live site
+3.3 In the Netlify console, selecting “Deploy site” will immediately take you to a terminal for your build. Once the build and deploy is finished , select Browse Site to view the live site
 
 ![](/img/hugoNetlify4.png)
 
 
 Once the website is deployed successfully , you get a radomly generated domain name with which you can access your website.
 
-You can add your custom Domain name and https certificate
+3.4 You can add your custom Domain name and https certificate
 
 ![](/img/5.png)
 
+
+Now you have your website with your custom domanin name and https certificate 
