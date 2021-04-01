@@ -4,6 +4,8 @@ date: "2021-03-25"
 description: "Mitakes to be avoided and tips to help clear cka exam 1.20 in 2021"
 
 # Theme-Defined params
-thumbnail: "img/post1Image.webp" # Thumbnail image
+thumbnail: "img/cka-exam.png" # Thumbnail image
 lead: "CKA 1.20"
 ---
+
+

@@ -1,5 +1,5 @@
 baseurl = "https://www.sarada.dev"
-title = "SARADA"
+title = "SARADA SRAVANTHI G"
 languageCode = "en-us"
 paginate = "10" # Number of posts per page
 theme = "mainroad"
@@ -7,13 +7,13 @@ disqusShortname = "" # Enable comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Author]
-  name = "Shaz"
-  bio = "Shaz maybe  a successful blogger or writer. Nobody knows it."
+  name = "SARADA"
+  bio = "SARADA maybe  a successful blogger or writer. Nobody knows it."
   avatar = "img/avatar.jpg"
 
 [Params]
-  subtitle = "DevOps enthusiast | Biker | Yoga Practitioner" # Subtitle of your site
-  description = "Shaz's technical blog about everything" # Description of your site
+  subtitle = "DevOps enthusiast | Yoga Practitioner | Biker | " # Subtitle of your site
+  description = "Sarada's technical blog about everything" # Description of your site
   opengraph = true
   twitter_cards = false
   readmore = true # Show "Read more" button in list if true
