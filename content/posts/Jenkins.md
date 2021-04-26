@@ -1,15 +1,16 @@
 ---
-title: "Deploy a simple hello world node.js app to AWS EKS end-end"
+title: "Deploy a simple hello world node.js app to AWS EKS end-end using Jenkins"
 date: "2021-04-24"
-description: "How to blog CI/CD style 2020"
+description: ""
 
 # Theme-Defined params
-thumbnail: "img/post1Image.webp" # Thumbnail image
-lead: "Set-up blog the easy way"
+thumbnail: "img/cicd1.png" # Thumbnail image
+lead: "Jenkins automaion "
 ---
 
+Writing In-Progress
 
-Building website using Hugo, GitHub and Netlify 
+<!-- Building website using Hugo, GitHub and Netlify 
 
 I have recently decided to start a blog and I looked at a bunch of different content management systems like WordPress , github pages etc , but it didnt quite feel like what I wanted . I'm a solo author and I wanted to put my content out there with leat amount of effort where I can focus on the content and not worry about the technology part. So, I finally settled down for the most elegant solution(in my opinion) which is Hugo with Netlify
 Following is the workflow if you want a look at how I set up my blog
@@ -118,4 +119,4 @@ Once the website is deployed successfully , you get a radomly generated domain n
 ![](/img/5.png)
 
 
-Now you have your website with your custom domanin name and https certificate 
+Now you have your website with your custom domanin name and https certificate  -->

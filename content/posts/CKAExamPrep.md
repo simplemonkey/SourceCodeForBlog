@@ -8,6 +8,8 @@ thumbnail: "img/cka-exam.png" # Thumbnail image
 lead: "CKA 1.20"
 ---
 
+Writing in-progress
+
 1> What is CKA exam syllabus for 1.20 
 major changes from 1.19 to 1.20
 -- syllabus link
