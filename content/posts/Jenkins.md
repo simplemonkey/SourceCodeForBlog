@@ -141,11 +141,11 @@ Manage Jenkins → Confiure System → Global Properties
 
 Update kubeconfig for cluster for kubectl to access cluster
 
-  ```aws eks update-kubeconfig --name```
+`aws eks update-kubeconfig --name`
 
-  ```https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html```
+`https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html`
 
-  ```IAM role to use  - instance role```
+`IAM role to use  - instance role`
 
 **5.3 Build docker image**
 
@@ -167,8 +167,8 @@ add the jenkins user into docker group
 sudo usermod -aG docker jenkins
 
 **5.4 Push docker image to ECR**
-
-```stage('Pushing to ECR') {
+```
+stage('Pushing to ECR') {
 steps{
 script {
 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
@@ -180,7 +180,7 @@ sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
 
 To Confiure sercret access key id and password for jenkins
 
-```aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com```
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com
 
 Reference : https://dev.to/hung5s/an-easy-way-to-push-docker-image-from-jenkins-to-ecr-4lpi
 
