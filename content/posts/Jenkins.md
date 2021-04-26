@@ -13,31 +13,31 @@ lead: "Jenkins automaion "
 
 **Steps to deploy app on EKS**
 
-\1. Create Bitbucket repo with Dockerfile and Jenkinsfile
+1. Create Bitbucket repo with Dockerfile and Jenkinsfile
 
-\2. Configure and run Jenkins on EC2
+2. Configure and run Jenkins on EC2
 
-\3. Configure Bitbucket Server integration , Docker and Kubernetes plug-ins
+3. Configure Bitbucket Server integration , Docker and Kubernetes plug-ins
 
-\4. Install Docker, Git, Kubectl, Eksctl on EC2 in *usr/*local/bin
+4. Install Docker, Git, Kubectl, Eksctl on EC2 in *usr/*local/bin
 
-`    	`add Jenkins to docker group
+Add Jenkins to docker group
 
-`    	`update $PATH=$PATH:/usr/local/bin for Jenkins user to access installed binaries
+Update $PATH=$PATH:/usr/local/bin for Jenkins user to access installed binaries
 
-\5. Create Jenkins pipeline :
+5. Create Jenkins pipeline :
 
-`    `>	Connect SCM and configure build trigger to poll SCM (configure bitbucket creds and specify      	JenkinsFile path in SCM)   
+     *	Connect SCM and configure build trigger to poll SCM (configure bitbucket creds and specifyJenkinsFile path in SCM)   
 
-`    `> Create EKS cluster with one node
+     * Create EKS cluster with one node
 
-`    `> Build docker image
+     * Build docker image
 
-`    `> Push docker image to ECR
+     * Push docker image to ECR
 
-`    `> Deploy app and load balancer on EKS
+     * Deploy app and load balancer on EKS
 
-`    `> Get Loadbalancer’s DNS name to access app
+     * Get Loadbalancer’s DNS name to access app
 
 
 
@@ -45,9 +45,9 @@ lead: "Jenkins automaion "
 
 
 
-`	`sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
+Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
-`	`(use vscode for version control )
+(use VScode for version control )
 
 
 
@@ -55,43 +55,19 @@ lead: "Jenkins automaion "
 
 **2. Configure and run Jenkins on EC2**
 
-`    `2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins),    	80(http)
+        2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins),    	80(http)
 
-`    `2.2 Login to EC2
+        2.2 Login to EC2
 
-`        `ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>
-
-
-
-`	 `Install Jenkins
-
-`        `https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
-
-`        `Configure admin
+        `ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>`
 
 
 
+        Install Jenkins
 
+        https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Configure admin
 
 
 
@@ -120,17 +96,17 @@ lead: "Jenkins automaion "
 
 **5.1 Create new pipeline and connect SCM and provide Jenkinsfile in the scriptPath.**
 
-`          `Provide bitbucket credentials if its a private repo
+    Provide bitbucket credentials if its a private repo
 
 
 
 
 
-`	 `Configure build triggers - poll scm /build when a change is pushed to bitbucket or cron job     	 schedule every 1 hour
+    Configure build triggers - poll scm /build when a change is pushed to bitbucket or cron job to schedule every 1 hour
 
 
 
-`         `**Cron job to build pipeline every hour**
+**Cron job to build pipeline every hour**
 
 
 
@@ -138,11 +114,11 @@ lead: "Jenkins automaion "
 
 
 
-`       `**Poll SCM**
+**Poll SCM**
 
 
 
-`	`Check SCM every 2 minutes and trigger build only if any change in SCM
+Check SCM every 2 minutes and trigger build only if any change in SCM
 
 
 
@@ -152,15 +128,15 @@ lead: "Jenkins automaion "
 
 stage('Deploy eks cluster ') {
 
-steps {
+    `steps {
 
-sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
+        sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
 
-sh 'aws eks update-kubeconfig --name sarada-activity-eks'
+        sh 'aws eks update-kubeconfig --name sarada-activity-eks'
 
-}
+    }
 
-}
+}`
 
 Issue faced : Jenkins not able to run kubectl/eksctl command
 
@@ -178,29 +154,29 @@ Manage Jenkins → Confiure System → Global Properties
 
 Update kubeconfig for cluster for kubectl to access cluster
 
-` `aws eks update-kubeconfig --name
+  `aws eks update-kubeconfig --name`
 
-` `https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html
+  `https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html`
 
-` `IAM role to use  - instance role
+  `IAM role to use  - instance role`
 
 **5.3 Build docker image**
 
-stage('Building image') {
+`stage('Building image') {
 
-steps{
+    steps{
 
-script {
+        script {
 
-dockerImage = docker.build registry
+            dockerImage = docker.build registry
 
-sh 'docker images'
+            sh 'docker images'
 
-}
+        }
 
-}
+    }
 
-}
+}`
 
 Issue: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 
@@ -211,21 +187,21 @@ sudo usermod -aG docker jenkins
 
 **5.4 Push docker image to ECR**
 
-stage('Pushing to ECR') {
+`stage('Pushing to ECR') {
 
-steps{
+    steps{
 
-script {
+        script {
 
-sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
+            sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
 
-sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
+            sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
 
-}
+        }
 
-}
+    }
 
-}
+}`
 
 To Confiure sercret access key id and password for jenkins
 
@@ -239,46 +215,46 @@ Create manifest files for deployment and loadbalancer service with target Port e
 
 and commit it to repo
 
-stage('deploy app on eks with loadbalancer') {
+`stage('deploy app on eks with loadbalancer') {
 
-steps{
+    steps{
 
-script {
+        script {
 
-sh 'kubectl create -f dep.yaml'
+            sh 'kubectl create -f dep.yaml'
 
-sh 'kubectl create -f lb-service.yaml '
+            sh 'kubectl create -f lb-service.yaml '
 
-// wait till dns generates
+            // wait till dns generates
 
-sh 'sleep 1m'
+            sh 'sleep 1m'
 
-}
+        }
 
-}
+    }
 
-}
+}`
 
 
 **5.6 Get LoadBalancer DNS**
 
 Create deployment with amazon ecr image and service of LoadBalncer type to expose the app on port 80 and container targetport 3000.
 
-stage('Get service DNS name') {
+`stage('Get service DNS name') {
 
-steps{
+    steps{
 
-script {
+        script {
 
-// get svc DNS
+            // get svc DNS
 
-sh 'kubectl get service/app-deployment-service'
+            sh 'kubectl get service/app-deployment-service'
 
-}
+        }
 
-}
+    }
 
-}
+}`
 
 
 **Pipeline view from Jenkins :**
