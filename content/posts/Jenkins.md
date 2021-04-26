@@ -58,10 +58,7 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
 
 2.2 Login to EC2
-
 ```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
-
-
 
 2.3 Install Jenkins
 
@@ -116,21 +113,15 @@ Configure build triggers - poll scm /build when a change is pushed to bitbucket 
 
 **Poll SCM**
 
-
-
 Check SCM every 2 minutes and trigger build only if any change in SCM
 
-
-
-
-
 **5.2 Create EKS cluster with one node**
-
+```
 stage('Deploy eks cluster ') {
-```steps {
-        sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
-        sh 'aws eks update-kubeconfig --name sarada-activity-eks'
-    }
+steps {
+sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
+sh 'aws eks update-kubeconfig --name sarada-activity-eks'
+}
 }
 ```
 
@@ -158,7 +149,8 @@ Update kubeconfig for cluster for kubectl to access cluster
 
 **5.3 Build docker image**
 
-```stage('Building image') {
+```
+stage('Building image') {
 steps{
 script {
 dockerImage = docker.build registry
@@ -170,7 +162,6 @@ sh 'docker images'
 
 Issue: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 
-
 add the jenkins user into docker group
 
 sudo usermod -aG docker jenkins
@@ -178,12 +169,12 @@ sudo usermod -aG docker jenkins
 **5.4 Push docker image to ECR**
 
 ```stage('Pushing to ECR') {
-    steps{
-        script {
-            sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
-            sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
-        }
-    }
+steps{
+script {
+sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
+sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
+}
+}
 }
 ```
 
@@ -199,16 +190,16 @@ Create manifest files for deployment and loadbalancer service with target Port e
 
 and commit it to repo
 
-```stage('deploy app on eks with loadbalancer') {
-
-    steps{
-        script {
-            sh 'kubectl create -f dep.yaml'
-            sh 'kubectl create -f lb-service.yaml '
-            // wait till dns generates
-            sh 'sleep 1m'
-        }
-    }
+```
+stage('deploy app on eks with loadbalancer') {
+steps{
+script {
+sh 'kubectl create -f dep.yaml'
+sh 'kubectl create -f lb-service.yaml '
+// wait till dns generates
+sh 'sleep 1m'
+}
+}
 }
 ```
 
