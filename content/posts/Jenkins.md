@@ -21,9 +21,9 @@ lead: "Jenkins automaion "
 
 4. Install Docker, Git, Kubectl, Eksctl on EC2 in *usr/*local/bin
 
-Add Jenkins to docker group
+    Add Jenkins to docker group
 
-Update $PATH=$PATH:/usr/local/bin for Jenkins user to access installed binaries
+    Update $PATH=$PATH:/usr/local/bin for Jenkins user to access installed binaries
 
 5. Create Jenkins pipeline :
 
@@ -55,11 +55,11 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
 **2. Configure and run Jenkins on EC2**
 
-        2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins),    	80(http)
+        2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
 
         2.2 Login to EC2
 
-        `ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>`
+        ```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
 
 
 
@@ -128,7 +128,7 @@ Check SCM every 2 minutes and trigger build only if any change in SCM
 
 stage('Deploy eks cluster ') {
 
-    `steps {
+   ```steps {
 
         sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
 
@@ -136,7 +136,7 @@ stage('Deploy eks cluster ') {
 
     }
 
-}`
+}```
 
 Issue faced : Jenkins not able to run kubectl/eksctl command
 
@@ -154,15 +154,15 @@ Manage Jenkins → Confiure System → Global Properties
 
 Update kubeconfig for cluster for kubectl to access cluster
 
-  `aws eks update-kubeconfig --name`
+  ```aws eks update-kubeconfig --name```
 
-  `https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html`
+  ```https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html```
 
-  `IAM role to use  - instance role`
+  ```IAM role to use  - instance role```
 
 **5.3 Build docker image**
 
-`stage('Building image') {
+```stage('Building image') {
 
     steps{
 
@@ -176,7 +176,7 @@ Update kubeconfig for cluster for kubectl to access cluster
 
     }
 
-}`
+}```
 
 Issue: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 
@@ -187,7 +187,7 @@ sudo usermod -aG docker jenkins
 
 **5.4 Push docker image to ECR**
 
-`stage('Pushing to ECR') {
+```stage('Pushing to ECR') {
 
     steps{
 
@@ -201,11 +201,11 @@ sudo usermod -aG docker jenkins
 
     }
 
-}`
+}```
 
 To Confiure sercret access key id and password for jenkins
 
-aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com
+```aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com```
 
 Reference : https://dev.to/hung5s/an-easy-way-to-push-docker-image-from-jenkins-to-ecr-4lpi
 
@@ -215,7 +215,7 @@ Create manifest files for deployment and loadbalancer service with target Port e
 
 and commit it to repo
 
-`stage('deploy app on eks with loadbalancer') {
+```stage('deploy app on eks with loadbalancer') {
 
     steps{
 
@@ -233,14 +233,14 @@ and commit it to repo
 
     }
 
-}`
+}```
 
 
 **5.6 Get LoadBalancer DNS**
 
 Create deployment with amazon ecr image and service of LoadBalncer type to expose the app on port 80 and container targetport 3000.
 
-`stage('Get service DNS name') {
+```stage('Get service DNS name') {
 
     steps{
 
@@ -254,7 +254,7 @@ Create deployment with amazon ecr image and service of LoadBalncer type to expos
 
     }
 
-}`
+}```
 
 
 **Pipeline view from Jenkins :**
