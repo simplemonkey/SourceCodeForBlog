@@ -55,19 +55,19 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
 **2. Configure and run Jenkins on EC2**
 
-        2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
+    2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
 
-        2.2 Login to EC2
+    2.2 Login to EC2
 
-        ```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
+    ```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
 
 
 
-        Install Jenkins
+    2.3 Install Jenkins
 
-        https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+    https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
-        Configure admin
+    2.4 Configure admin
 
 
 
@@ -129,14 +129,11 @@ Check SCM every 2 minutes and trigger build only if any change in SCM
 stage('Deploy eks cluster ') {
 
    ```steps {
-
         sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
-
         sh 'aws eks update-kubeconfig --name sarada-activity-eks'
-
     }
-
-}```
+}
+```
 
 Issue faced : Jenkins not able to run kubectl/eksctl command
 
@@ -163,20 +160,14 @@ Update kubeconfig for cluster for kubectl to access cluster
 **5.3 Build docker image**
 
 ```stage('Building image') {
-
     steps{
-
         script {
-
             dockerImage = docker.build registry
-
             sh 'docker images'
-
         }
-
     }
-
-}```
+}
+```
 
 Issue: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 
@@ -188,19 +179,12 @@ sudo usermod -aG docker jenkins
 **5.4 Push docker image to ECR**
 
 ```stage('Pushing to ECR') {
-
     steps{
-
         script {
-
             sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 519852036875.dkr.ecr.us-east-2.amazonaws.com'
-
             sh 'docker push 519852036875.dkr.ecr.us-east-2.amazonaws.com/sarada-helloword'
-
         }
-
     }
-
 }
 ```
 
@@ -219,21 +203,13 @@ and commit it to repo
 ```stage('deploy app on eks with loadbalancer') {
 
     steps{
-
         script {
-
             sh 'kubectl create -f dep.yaml'
-
             sh 'kubectl create -f lb-service.yaml '
-
             // wait till dns generates
-
             sh 'sleep 1m'
-
         }
-
     }
-
 }
 ```
 
@@ -243,19 +219,12 @@ and commit it to repo
 Create deployment with amazon ecr image and service of LoadBalncer type to expose the app on port 80 and container targetport 3000.
 
 ```stage('Get service DNS name') {
-
     steps{
-
         script {
-
             // get svc DNS
-
             sh 'kubectl get service/app-deployment-service'
-
         }
-
     }
-
 }
 ```
 
