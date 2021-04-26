@@ -58,7 +58,7 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
 
 2.2 Login to EC2
-```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
+ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>
 
 2.3 Install Jenkins
 
