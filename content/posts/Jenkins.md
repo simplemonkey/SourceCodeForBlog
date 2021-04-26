@@ -269,24 +269,3 @@ Create deployment with amazon ecr image and service of LoadBalncer type to expos
 
 **Open the URL**
 
-
-
-
-Flux
-
-installarion : https://toolkit.fluxcd.io/guides/installation/
-
-flux botstrap bitbucket
-
-flux bootstrap git \
-
-`  `--url=https://saradagss@bitbucket.org/saradagss/activity1.git \
-
-`  `--username=saradagss \
-
-`  `--password=Tatvamasi@99 \
-
-`  `--token-auth=true \
-
-`  `--path=clusters/my-cluster
-
