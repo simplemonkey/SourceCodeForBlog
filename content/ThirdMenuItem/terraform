@@ -1,0 +1,231 @@
+1. terraform
+
+main.tf - 
+
+terraform{
+    required_providers{
+        aws = {
+            source = "hasicorp/aws"
+            version= "~>3.27"
+        }
+    }
+
+    backend "s3" {
+        name = 
+        path = "/path/terraform.tfstate"
+        region = ""
+    }
+// terraform init
+asks if local tfstate to be copied to remote backend
+}
+provider "aws" {
+    profile = "default" 
+    region = "us-east-1"
+}
+
+resource "aws_instance" "example" {
+    ami = 
+    instance_type = "t2.micro"
+    tags = {
+        Name = "Example_instance"
+    }
+}
+
+terraform init , fmt , validate , apply, destroy
+terraform show
+
+terraform apply -var="region=us-east-one" doesnt persist
+- variables.tf -
+    variable "region" {
+        description = ""
+        type = string // data-type
+        default = "us-east-1"
+    }
+- terraform.tfvars
+  region="us-east-1"
+
+- outputs.tf
+   output "instance_id"{
+       description = ""
+       value = aws_instance.example.instance_id
+   }
+   output "instance_ip"{
+       description = ""
+       value = aws_instance.example.public_ip
+   }
+ query - terrform output
+
+ export credentials as env variable 
+ $ export AWS_ACCESS_KEY_ID="anaccesskey"
+$ export AWS_SECRET_ACCESS_KEY="asecretkey"
+$ export AWS_DEFAULT_REGION="us-west-2
+
+shared credential file
+checks creds in deafult location on sys or can be specified
+provider "aws" {
+  region                  = "us-west-2"
+  shared_credentials_file = "/Users/tf_user/.aws/creds"
+  profile                 = "customprofile"
+}
+
+
+
+2. Ansible
+
+Ansible - agentless , uses ssh
+to prevent human error 
+automate tedious tasks
+one control machine to push changes to all servers 
+can reuse yaml file for multiple environments
+yal conf simple to understand
+ansible written in ython using boto3
+
+
+ansible playbook eg :
+
+  - hosts: webservers
+    remote_user: root
+    vars:   //to use for repeatig values
+      software: nginx
+
+    tasks 
+    - name: create nginx description
+    file:
+        path: /path/
+        state: Directory
+    - name: install nginx
+    yum:
+        name: {{ software }}
+        state: latest
+    - name: start nginx 
+    service:
+        name: {{ software }}
+        state: started 
+
+
+host inventory file
+
+host ip
+
+[webservers]
+10.15.244.10
+10.15.244.11
+
+[databaseservers]
+ip1
+ip2
+ Ansible for docker
+Ansible tower
+UI dashoard - centrally manage automation tsks 
+
+Modules :
+Cloud modules - aws - s3_bucket , ec2
+Clustering modules - k8s - write complete definition file
+                     k8s_scale
+Command modules - command :
+                        become_user: 
+                        args:
+Databse modules  myysql  postgresql
+File modules
+Service modules
+
+3. Jenkins 
+
+jenkins built using java , sys req - java
+Jenkinsfile - pipeline as a code
+
+Continous INtegration - dev->testing->integration testing
+Contiuos Delivery - + Acceptance Test
+Continuos Deployment - + deployment on prod
+
+java -jar jenkins.war -httpPort=9090
+
+Hi Digin! good morning . Just a quick update on my learning activity .I created a sample web app and dockerized  app and pushed image to dockerhub(just to verify if everything was right). Im trying to create a pipeline to automate dockerbuild from Bitbucket and push it to ECR
+
+
+
+install docker on ec2 instance for jenkins
+iam role for ec2 to access ecr 
+open 8096 for running docker
+build pipeline
+
+Pre-requistes:
+1. Jenkins is up and running
+2. Docker installed on Jenkins instance and configured.
+3. Docker plug-in installed in Jenkins
+4. configure to use gitbucket 
+5. port 8096 is opened up in firewall rules.
+
+pipeline {
+    agent any
+
+    environment {
+        dockerImage=''
+    }
+
+       stages {
+        stage('Cloning Git') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://bitbucket.org/saradagss/helloworld']]])       
+            }
+        }
+    
+    // Building Docker images
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry
+        }
+      }
+    }
+    stage('Pushing to ECR') {
+     steps{  
+         script {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin acct_id.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker push acct_id.dkr.ecr.us-east-2.amazonaws.com/your_ecr_repo:latest'
+         }
+        }
+      }    
+}
+
+https://plugins.jenkins.io/generic-webhook-trigger/ 
+
+pipeline {
+agent any
+
+stages {
+stage('Build') {
+steps {
+echo 'Building..'
+sh 'echo "FROM httpd" > Dockerfile'
+sh 'cat Dockerfile'
+sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 109428704950.dkr.ecr.us-east-1.amazonaws.com'
+sh 'docker images'
+sh 'docker build -t testrepo .'
+sh 'docker tag testrepo:latest 109428704950.dkr.ecr.us-east-1.amazonaws.com/testrepo:myjenkins'
+sh 'docker images'
+sh 'docker push 109428704950.dkr.ecr.us-east-1.amazonaws.com/testrepo:myjenkins'
+}
+}
+stage('Deploy') {
+steps {
+echo 'Rajath....'
+}
+}
+}
+}
+
+
+https://www.jenkins.io/doc/book/pipeline/jenkinsfile/ 
+
+jenkins role - clluster configmap -- aws configmap addd
+role when give , no path 
+
+arn:aws:iam::ACCOUNTID:role/JenkinsEC2InstanceRole 
+
+arn:aws:iam::ACCOUNTID:role/JenkinsEC2InstanceRole 
+arn:aws:iam::109428704950:role/service-role/JenkinsEC2InstanceRole 
+
+scm polling : 
+jenkins file in bitbucket 
+bitbucket repo is private 

@@ -1,7 +1,7 @@
 ---
-title: "How I cleared Certified Kubernetes Administrator Exam - CKA 1.20 on my 2nd Attempt"
+title: "How I cleared Certified Kubernetes Administrator Exam"
 date: "2021-03-25"
-description: "Mitakes to be avoided and tips to help clear cka exam 1.20 in 2021"
+description: "Mitakes to avoid and tips to help clear CKA exam 1.20 in 2021"
 
 # Theme-Defined params
 thumbnail: "img/cka-exam.png" # Thumbnail image
@@ -19,7 +19,7 @@ major changes from 1.19 to 1.20
 3> Important questions to pratise
 
 
-4> Mistakes to be avoided
+4> Mistakes to avoid
 
 
 
