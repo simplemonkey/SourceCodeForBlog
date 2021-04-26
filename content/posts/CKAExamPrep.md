@@ -5,7 +5,7 @@ description: "Mitakes to avoid and tips to help clear CKA exam 1.20 in 2021"
 
 # Theme-Defined params
 thumbnail: "img/cka-exam.png" # Thumbnail image
-lead: "CKA 1.20"
+lead: "CKA 1.20  Writing In-Progress"
 ---
 
 Writing in-progress
