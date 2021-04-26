@@ -49,9 +49,7 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
 (use VScode for version control )
 
-
-
-
+![](/img/jenkins-images/1.png)
 
 **2. Configure and run Jenkins on EC2**
 
@@ -66,28 +64,17 @@ https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
 2.4 Configure admin
 
-
+![](/img/jenkins-images/2.png)
 
 **3. Configure Bitbucket Server Integration , Docker and Kubernetes plug-ins**
 
-
-
-
-
-
-
-
-
-
-
-
-
+![](/img/jenkins-images/3.png)
 
 **4. Install Docker, Git, Kubectl, Eksctl on EC2 in *usr/*local/bin**
 
 <https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html>
 
-
+![](/img/jenkins-images/4.png)
 
 **5. Create Jenkins pipeline**
 
@@ -95,25 +82,20 @@ https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
 Provide bitbucket credentials if its a private repo
 
-
-
-
+![](/img/jenkins-images/5.png)
 
 Configure build triggers - poll scm /build when a change is pushed to bitbucket or cron job to schedule every 1 hour
 
 
-
 **Cron job to build pipeline every hour**
 
-
-
-
-
-
+![](/img/jenkins-images/6.png)
 
 **Poll SCM**
 
 Check SCM every 2 minutes and trigger build only if any change in SCM
+
+![](/img/jenkins-images/7.png)
 
 **5.2 Create EKS cluster with one node**
 ```
@@ -131,13 +113,7 @@ Added path variable in global environment variable
 
 Manage Jenkins → Confiure System → Global Properties
 
-
-
-
-
-
-
-
+![](/img/jenkins-images/8.png)
 
 Update kubeconfig for cluster for kubectl to access cluster
 
@@ -161,6 +137,8 @@ sh 'docker images'
 ```
 
 Issue: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
+
+![](/img/jenkins-images/8.png)
 
 add the jenkins user into docker group
 
@@ -208,7 +186,8 @@ sh 'sleep 1m'
 
 Create deployment with amazon ecr image and service of LoadBalncer type to expose the app on port 80 and container targetport 3000.
 
-```stage('Get service DNS name') {
+```
+stage('Get service DNS name') {
 steps{
 script {
 // get svc DNS
@@ -220,13 +199,12 @@ sh 'kubectl get service/app-deployment-service'
 
 **Pipeline view from Jenkins :**
 
-
-
-
+![](/img/jenkins-images/9.png)
 
 **Check Console Output to get DNS**
 
-
+![](/img/jenkins-images/10.png)
 
 **Open the URL**
 
+![](/img/jenkins-images/11.png)
