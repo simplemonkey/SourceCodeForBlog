@@ -201,7 +201,8 @@ sudo usermod -aG docker jenkins
 
     }
 
-}```
+}
+```
 
 To Confiure sercret access key id and password for jenkins
 
@@ -233,7 +234,8 @@ and commit it to repo
 
     }
 
-}```
+}
+```
 
 
 **5.6 Get LoadBalancer DNS**
@@ -254,8 +256,8 @@ Create deployment with amazon ecr image and service of LoadBalncer type to expos
 
     }
 
-}```
-
+}
+```
 
 **Pipeline view from Jenkins :**
 
