@@ -55,19 +55,19 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
 **2. Configure and run Jenkins on EC2**
 
-    2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
+2.1 launch EC2 instance with security group for ports open on  22(ssh), 8080(for jenkins), 80(http)
 
-    2.2 Login to EC2
+2.2 Login to EC2
 
-    ```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
+```ssh -i "sarada-activity.pem" <ec2-user@ec2-18-224-3-229.us-east-2.compute.amazonaws.com>```
 
 
 
-    2.3 Install Jenkins
+2.3 Install Jenkins
 
-    https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
-    2.4 Configure admin
+2.4 Configure admin
 
 
 
@@ -96,13 +96,13 @@ Sample code at https://saradagss@bitbucket.org/saradagss/activity1.git
 
 **5.1 Create new pipeline and connect SCM and provide Jenkinsfile in the scriptPath.**
 
-    Provide bitbucket credentials if its a private repo
+Provide bitbucket credentials if its a private repo
 
 
 
 
 
-    Configure build triggers - poll scm /build when a change is pushed to bitbucket or cron job to schedule every 1 hour
+Configure build triggers - poll scm /build when a change is pushed to bitbucket or cron job to schedule every 1 hour
 
 
 
@@ -127,8 +127,7 @@ Check SCM every 2 minutes and trigger build only if any change in SCM
 **5.2 Create EKS cluster with one node**
 
 stage('Deploy eks cluster ') {
-
-   ```steps {
+```steps {
         sh 'eksctl create cluster --name sarada-activity-eks --region us-east-2 --nodes-min 1 --node-type t3.medium'
         sh 'aws eks update-kubeconfig --name sarada-activity-eks'
     }
@@ -160,12 +159,12 @@ Update kubeconfig for cluster for kubectl to access cluster
 **5.3 Build docker image**
 
 ```stage('Building image') {
-    steps{
-        script {
-            dockerImage = docker.build registry
-            sh 'docker images'
-        }
-    }
+steps{
+script {
+dockerImage = docker.build registry
+sh 'docker images'
+}
+}
 }
 ```
 
@@ -219,12 +218,12 @@ and commit it to repo
 Create deployment with amazon ecr image and service of LoadBalncer type to expose the app on port 80 and container targetport 3000.
 
 ```stage('Get service DNS name') {
-    steps{
-        script {
-            // get svc DNS
-            sh 'kubectl get service/app-deployment-service'
-        }
-    }
+steps{
+script {
+// get svc DNS
+sh 'kubectl get service/app-deployment-service'
+}
+}
 }
 ```
 
