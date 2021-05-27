@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Deploy a simple hello world node.js app to AWS EKS end-end using Jenkins"
 date: "2021-04-24"
 description: ""
@@ -207,4 +207,4 @@ sh 'kubectl get service/app-deployment-service'
 
 **Open the URL**
 
-![](/img/jenkins-images/11.png)
+![](/img/jenkins-images/11.png) -->
